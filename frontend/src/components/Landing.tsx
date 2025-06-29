@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import landingImage from '../assets/images/landing_image.webp';
 import logo from '../assets/images/logo.png';
 import benCoach from '../assets/images/ben_coach.png';
 import kevinCoach from '../assets/images/kevin_coach.png';
 import robertCoach from '../assets/images/robert_coach.png';
-import reginaldDog from '../assets/images/dog_coach.png';
 
 // Import gym images JSON
 import gymImagesData from '../assets/images/gym/images.json';
@@ -15,6 +14,7 @@ const Landing: React.FC = () => {
   // Gym carousel state
   const gymImages = Object.values(gymImagesData);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Side nav state
   const [activeSection, setActiveSection] = useState<string>('welcome');
@@ -24,16 +24,37 @@ const Landing: React.FC = () => {
   // FAQ state
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-  // Auto-rotate gym images every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
+  // Function to start/restart auto-rotation timer
+  const startAutoRotation = () => {
+    // Clear existing interval if any
+    if (autoRotateIntervalRef.current) {
+      clearInterval(autoRotateIntervalRef.current);
+    }
+    
+    // Start new interval
+    autoRotateIntervalRef.current = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % gymImages.length
       );
-    }, 3000);
+    }, 4000);
+  };
 
-    return () => clearInterval(interval);
+  // Auto-rotate gym images every 3 seconds
+  useEffect(() => {
+    startAutoRotation();
+
+    return () => {
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+      }
+    };
   }, [gymImages.length]);
+
+  // Function to handle user interaction and reset timer
+  const handleUserInteraction = (newIndex: number) => {
+    setCurrentImageIndex(newIndex);
+    startAutoRotation(); // Reset the timer
+  };
 
   // Side nav scroll detection and section tracking
   useEffect(() => {
@@ -149,7 +170,6 @@ const Landing: React.FC = () => {
   const sections = [
     { id: 'welcome', name: 'Welcome' },
     { id: 'coaches', name: 'Coaches' },
-    { id: 'reginald', name: 'Reginald' },
     { id: 'schedule', name: 'Schedule' },
     { id: 'gym', name: 'The Gym' },
     { id: 'faq', name: 'FAQ' },
@@ -267,7 +287,7 @@ const Landing: React.FC = () => {
                 />
               </div>
               <div className="coach-info">
-                <h3 className="coach-name">Kevin</h3>
+                <h3 className="coach-name">Kevin Satterfield</h3>
                 <div className="coach-description">
                   <p className="coach-title-text">Instructor</p>
                   <p>Jiu-Jitsu Brown Belt</p>
@@ -286,7 +306,7 @@ const Landing: React.FC = () => {
                 />
               </div>
               <div className="coach-info">
-                <h3 className="coach-name">Robert</h3>
+                <h3 className="coach-name">Robert Ellison</h3>
                 <div className="coach-description">
                   <p className="coach-title-text">Head Instructor</p>
                   <p>Black belt under UFC, WEC and PRIDE veteran Jeff Curran, in the Pedro Sauer lineage</p>
@@ -303,37 +323,12 @@ const Landing: React.FC = () => {
                 />
               </div>
               <div className="coach-info">
-                <h3 className="coach-name">Ben</h3>
+                <h3 className="coach-name">Ben Raffiani</h3>
                 <div className="coach-description">
                   <p className="coach-title-text">Instructor</p>
                   <p>Jiu-Jitsu Brown Belt</p>
                   <p>Under Robert Ellison</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="dog-coach-section" data-section="reginald">
-        <div className="dog-coach-container">
-          <h2 className="dog-coach-intro">and the mighty Reginald Minn Choi</h2>
-          
-          <div className="dog-coach-card">
-            <div className="dog-image-wrapper">
-              <img 
-                src={reginaldDog} 
-                alt="Reginald Minn Choi - King of the Mat" 
-                className="dog-image"
-              />
-            </div>
-            <div className="dog-info">
-              <h3 className="dog-name">Reginald Minn Choi</h3>
-              <div className="dog-description">
-                <p className="dog-title-text">King Of The Mat</p>
-                <p>19 Stripe Coral belt</p>
-                <p>Under Kramer lineage</p>
-                <p>Fears no man only door knocks</p>
               </div>
             </div>
           </div>
@@ -446,7 +441,7 @@ const Landing: React.FC = () => {
                 <button
                   key={index}
                   className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
-                  onClick={() => setCurrentImageIndex(index)}
+                  onClick={() => handleUserInteraction(index)}
                   aria-label={`View gym image ${index + 1}`}
                 />
               ))}
@@ -455,18 +450,14 @@ const Landing: React.FC = () => {
             <div className="carousel-controls">
               <button
                 className="carousel-btn prev-btn"
-                onClick={() => setCurrentImageIndex((prevIndex) => 
-                  prevIndex === 0 ? gymImages.length - 1 : prevIndex - 1
-                )}
+                onClick={() => handleUserInteraction((currentImageIndex === 0 ? gymImages.length - 1 : currentImageIndex - 1))}
                 aria-label="Previous image"
               >
                 &#8249;
               </button>
               <button
                 className="carousel-btn next-btn"
-                onClick={() => setCurrentImageIndex((prevIndex) => 
-                  (prevIndex + 1) % gymImages.length
-                )}
+                onClick={() => handleUserInteraction((currentImageIndex === gymImages.length - 1 ? 0 : currentImageIndex + 1))}
                 aria-label="Next image"
               >
                 &#8250;
