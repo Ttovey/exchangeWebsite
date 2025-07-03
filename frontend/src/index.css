@@ -445,11 +445,30 @@ body {
 }
 
 .content-section {
-  background: #1a1a1a;
+  background: #2a2a2a;
+  background-image: url('./assets/images/logo.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 700px auto;
+  background-attachment: fixed;
+  position: relative;
   padding: 4rem 2rem;
 }
 
+.content-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(42, 42, 42, 0.85);
+  z-index: 1;
+}
+
 .content-container {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -507,7 +526,7 @@ body {
 
 /* Coaches Section */
 .coaches-section {
-  background: #2a2a2a;
+  background: #1a1a1a;
   padding: 5rem 2rem;
   border-top: 1px solid #444;
 }
@@ -605,6 +624,18 @@ body {
 
 .coach-description p:last-child {
   margin-bottom: 0;
+}
+
+/* Responsive Design for Content Section */
+@media (max-width: 768px) {
+  .content-section {
+    background-size: 250px auto;
+    background-attachment: scroll;
+  }
+  
+  .content-section::before {
+    background: rgba(42, 42, 42, 0.9);
+  }
 }
 
 /* Responsive Design */
@@ -782,7 +813,7 @@ body {
 
 /* Schedule Section */
 .schedule-section {
-  background: #1a1a1a;
+  background: #2a2a2a;
   padding: 3rem 2rem;
   border-top: 1px solid #444;
 }
@@ -887,7 +918,7 @@ body {
 
 /* Gym Section */
 .gym-section {
-  background: #2a2a2a;
+  background: #1a1a1a;
   padding: 5rem 2rem;
   border-top: 1px solid #444;
 }
@@ -1033,7 +1064,7 @@ body {
 
 /* FAQ Section */
 .faq-section {
-  background: #1a1a1a;
+  background: #2a2a2a;
   padding: 5rem 2rem;
   border-top: 1px solid #444;
 }
