@@ -448,8 +448,8 @@ body {
   background: #2a2a2a;
   background-image: url('./assets/images/logo.png');
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 700px auto;
+  background-position: center 75%;
+  background-size: 650px auto;
   background-attachment: fixed;
   position: relative;
   padding: 4rem 2rem;
