@@ -393,14 +393,54 @@ body {
 }
 
 .navbar-title {
-  color: #ffffff;
-  font-size: 2.2rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #e9ecef 50%, #ffffff 75%, #f1f3f4 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.4rem;
+  font-weight: 800;
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
   flex: 3;
   text-align: center;
   text-transform: uppercase;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: shimmer 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive navbar title styling */
+@media (max-width: 768px) {
+  .navbar-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-title {
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+  }
 }
 
 .hamburger-menu {

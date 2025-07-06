@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import landingImage from '../assets/images/landing_image.webp';
 import logo from '../assets/images/logo.png';
 import benCoach from '../assets/images/ben_coach.png';
@@ -25,7 +25,7 @@ const Landing: React.FC = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   // Function to start/restart auto-rotation timer
-  const startAutoRotation = () => {
+  const startAutoRotation = useCallback(() => {
     // Clear existing interval if any
     if (autoRotateIntervalRef.current) {
       clearInterval(autoRotateIntervalRef.current);
@@ -37,7 +37,7 @@ const Landing: React.FC = () => {
         (prevIndex + 1) % gymImages.length
       );
     }, 4000);
-  };
+  }, [gymImages.length]);
 
   // Auto-rotate gym images every 3 seconds
   useEffect(() => {
@@ -48,7 +48,7 @@ const Landing: React.FC = () => {
         clearInterval(autoRotateIntervalRef.current);
       }
     };
-  }, [gymImages.length]);
+  }, [gymImages.length, startAutoRotation]);
 
   // Function to handle user interaction and reset timer
   const handleUserInteraction = (newIndex: number) => {
