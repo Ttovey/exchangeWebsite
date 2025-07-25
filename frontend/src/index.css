@@ -693,6 +693,19 @@ body {
     width: 150px;
     height: 150px;
   }
+  
+  /* Reorder coaches for mobile - Robert first */
+  .center-coach {
+    order: 1;
+  }
+  
+  .coach-card:nth-child(1) {
+    order: 2;
+  }
+  
+  .coach-card:nth-child(3) {
+    order: 3;
+  }
 }
 
 /* Hamburger Menu Styles */
