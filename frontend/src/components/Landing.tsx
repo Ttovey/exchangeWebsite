@@ -219,6 +219,15 @@ const Landing: React.FC = () => {
                     {section.name}
                   </button>
                 ))}
+                <a 
+                  href="https://jjex.kicksite.net/public/landing_pages/f7fb044f-d340-453b-ae9a-e0d4865e8100/submission/new" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="dropdown-item signup-dropdown-item"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sign Up Now
+                </a>
               </div>
             </div>
           )}
