@@ -482,7 +482,8 @@ const Landing: React.FC = () => {
           <p className="faq-subtitle">
             If you can't find the answer you're looking for, feel free to reach out via text{' '}
             <a href="tel:+19849999286" className="faq-contact-link">(984) 999-9286</a>, email{' '}
-            <a href="mailto:info@thejiujitsuexchange.com" className="faq-contact-link">info@thejiujitsuexchange.com</a>, or the contact form.
+            <a href="mailto:info@thejiujitsuexchange.com" className="faq-contact-link">info@thejiujitsuexchange.com</a>, or the{' '}
+            <a href="https://jjex.kicksite.net/public/landing_pages/722ecef8-8c38-4b75-b0f7-303c69426ff9/submission/new" target="_blank" rel="noopener noreferrer" className="faq-contact-link">contact form</a>.
           </p>
           
           <div className="faq-list">
@@ -532,6 +533,18 @@ const Landing: React.FC = () => {
                 className="signup-button"
               >
                 Sign Up Now
+              </a>
+            </div>
+            
+            <div className="footer-section">
+              <h4 className="footer-heading">Get In Touch</h4>
+              <a 
+                href="https://jjex.kicksite.net/public/landing_pages/722ecef8-8c38-4b75-b0f7-303c69426ff9/submission/new" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="contact-button"
+              >
+                Contact Us
               </a>
             </div>
             
