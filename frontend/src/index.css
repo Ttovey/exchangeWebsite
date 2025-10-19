@@ -365,24 +365,25 @@ body {
   object-fit: contain;
 }
 
-.navbar-title {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 25%, #e9ecef 50%, #ffffff 75%, #f1f3f4 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: 0.08em;
+.navbar-banner {
   flex: 3;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  animation: shimmer 3s ease-in-out infinite;
-  transition: all 0.3s ease;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-desktop {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.banner-mobile {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  display: none;
 }
 
 
@@ -399,20 +400,21 @@ body {
   }
 }
 
-/* Responsive navbar title styling */
+/* Responsive navbar banner styling */
 @media (max-width: 768px) {
-  .navbar-title {
-    font-size: 1.8rem;
-    letter-spacing: 0.05em;
-    font-weight: 700;
+  .banner-desktop {
+    display: none;
+  }
+  
+  .banner-mobile {
+    display: block;
+    height: 45px;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar-title {
-    font-size: 1.4rem;
-    letter-spacing: 0.03em;
-    font-weight: 700;
+  .banner-mobile {
+    height: 40px;
   }
 }
 
@@ -486,7 +488,7 @@ body {
 
 .content-section {
   background: #2a2a2a;
-  background-image: url('./assets/images/logo.png');
+  background-image: url('./assets/images/JJX LOGO TRANSPARENT.png');
   background-repeat: no-repeat;
   background-position: center 75%;
   background-size: 650px auto;
@@ -531,7 +533,7 @@ body {
 }
 
 .content-text {
-  text-align: left;
+  text-align: center;
   line-height: 1.8;
 }
 

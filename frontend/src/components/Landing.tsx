@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import landingImage from '../assets/images/landing_image.webp';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/JJX LOGO TRANSPARENT.png';
+import bannerDesktop from '../assets/images/JJX Banner DESKTOP.png';
+import bannerMobile from '../assets/images/JJX Banner MOBILE.png';
 import benCoach from '../assets/images/ben_coach.png';
 import kevinCoach from '../assets/images/kevin_coach.png';
 import robertCoach from '../assets/images/robert_coach.png';
@@ -195,7 +197,10 @@ const Landing: React.FC = () => {
         <div className="navbar-logo">
           <img src={logo} alt="The Jiu-Jitsu Exchange Logo" className="logo-image" />
         </div>
-        <h1 className="navbar-title">The Jiu-Jitsu Exchange</h1>
+        <div className="navbar-banner">
+          <img src={bannerDesktop} alt="The Jiu-Jitsu Exchange" className="banner-desktop" />
+          <img src={bannerMobile} alt="The Jiu-Jitsu Exchange" className="banner-mobile" />
+        </div>
         <div className="hamburger-menu">
           <button 
             className="hamburger-button"
@@ -261,7 +266,7 @@ const Landing: React.FC = () => {
             </p>
             
             <p>
-              Whether you're a seasoned competitor or stepping onto the mats for the first time, our doors are open. Classes are tailored to all levels, from beginners looking to build a strong foundation, to advanced practitioners seeking to refine their game.
+              Whether you're a seasoned competitor, or stepping onto the mats for the first time - we've got you covered. Classes are tailored to all levels, from beginners looking to build a strong foundation, to advanced practitioners seeking to refine their game.
             </p>
             
             <p className="closing-text">
