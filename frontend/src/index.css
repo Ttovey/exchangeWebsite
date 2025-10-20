@@ -401,7 +401,7 @@ body {
 }
 
 /* Responsive navbar banner styling */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .banner-desktop {
     display: none;
   }
@@ -492,7 +492,7 @@ body {
   background-repeat: no-repeat;
   background-position: center 75%;
   background-size: 650px auto;
-  background-attachment: fixed;
+  background-attachment: scroll;
   position: relative;
   padding: 4rem 2rem;
 }
@@ -671,8 +671,9 @@ body {
 /* Responsive Design for Content Section */
 @media (max-width: 768px) {
   .content-section {
-    background-size: 250px auto;
+    background-size: 600px auto;
     background-attachment: scroll;
+    background-position: center center;
   }
   
   .content-section::before {
