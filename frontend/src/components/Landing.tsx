@@ -359,7 +359,6 @@ const Landing: React.FC = () => {
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
                 <span className="class-type">No Gi Jiu-Jitsu</span>
-                <span className="class-note">Fundamentals Break-Off Depending On Curriculum/Attendance</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -370,9 +369,12 @@ const Landing: React.FC = () => {
             <div className="day-schedule">
               <h3 className="day-name">Tuesday</h3>
               <div className="class-time">
+                <span className="time">6:00PM - 6:30PM</span>
+                <span className="class-type">Gi Jiu-Jitsu Fundamentals</span>
+              </div>
+              <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
                 <span className="class-type">Gi Jiu-Jitsu</span>
-                <span className="class-note">Fundamentals Break-Off Depending On Curriculum/Attendance</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -385,7 +387,6 @@ const Landing: React.FC = () => {
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
                 <span className="class-type">No Gi Jiu-Jitsu</span>
-                <span className="class-note">Fundamentals Break-Off Depending On Curriculum/Attendance</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -396,9 +397,12 @@ const Landing: React.FC = () => {
             <div className="day-schedule">
               <h3 className="day-name">Thursday</h3>
               <div className="class-time">
+                <span className="time">6:00PM - 6:30PM</span>
+                <span className="class-type">No Gi Jiu-Jitsu Fundamentals</span>
+              </div>
+              <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
                 <span className="class-type">Gi Jiu-Jitsu</span>
-                <span className="class-note">Fundamentals Break-Off Depending On Curriculum/Attendance</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
