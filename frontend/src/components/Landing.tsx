@@ -358,7 +358,7 @@ const Landing: React.FC = () => {
               <h3 className="day-name">Monday</h3>
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
-                <span className="class-type">No Gi Jiu-Jitsu</span>
+                <span className="class-type">NoGi Jiu-Jitsu - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -370,11 +370,11 @@ const Landing: React.FC = () => {
               <h3 className="day-name">Tuesday</h3>
               <div className="class-time">
                 <span className="time">6:00PM - 6:30PM</span>
-                <span className="class-type">Gi Jiu-Jitsu Fundamentals</span>
+                <span className="class-type">Gi Jiu-Jitsu - Fundamentals</span>
               </div>
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
-                <span className="class-type">Gi Jiu-Jitsu</span>
+                <span className="class-type">Gi Jiu-Jitsu - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -386,7 +386,7 @@ const Landing: React.FC = () => {
               <h3 className="day-name">Wednesday</h3>
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
-                <span className="class-type">No Gi Jiu-Jitsu</span>
+                <span className="class-type">NoGi Jiu-Jitsu - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -398,11 +398,11 @@ const Landing: React.FC = () => {
               <h3 className="day-name">Thursday</h3>
               <div className="class-time">
                 <span className="time">6:00PM - 6:30PM</span>
-                <span className="class-type">No Gi Jiu-Jitsu Fundamentals</span>
+                <span className="class-type">NoGi Jiu-Jitsu - Fundamentals</span>
               </div>
               <div className="class-time">
                 <span className="time">6:30PM - 7:30PM</span>
-                <span className="class-type">Gi Jiu-Jitsu</span>
+                <span className="class-type">Gi Jiu-Jitsu - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">7:30PM - 8:30PM</span>
@@ -413,8 +413,12 @@ const Landing: React.FC = () => {
             <div className="day-schedule">
               <h3 className="day-name">Friday</h3>
               <div className="class-time">
+                <span className="time">5:45PM - 6:30PM</span>
+                <span className="class-type">Striking - All Levels</span>
+              </div>
+              <div className="class-time">
                 <span className="time">6:30PM - 7:00PM</span>
-                <span className="class-type">No Gi Weekly Wrap-Up</span>
+                <span className="class-type">NoGi Jiu-Jitsu Weekly Wrap-Up - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">7:00PM - 8:00PM</span>
@@ -426,7 +430,7 @@ const Landing: React.FC = () => {
               <h3 className="day-name">Saturday</h3>
               <div className="class-time">
                 <span className="time">11:00AM - 12:00PM</span>
-                <span className="class-type">No Gi Jiu-Jitsu All Levels</span>
+                <span className="class-type">NoGi Jiu-Jitsu - All Levels</span>
               </div>
               <div className="class-time">
                 <span className="time">12:00PM - 1:30PM</span>
