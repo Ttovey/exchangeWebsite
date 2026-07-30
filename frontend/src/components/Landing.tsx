@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import landingImage from '../assets/images/landing_image.webp';
-import logo from '../assets/images/JJX LOGO TRANSPARENT.png';
-import bannerDesktop from '../assets/images/JJX Banner DESKTOP.png';
-import bannerMobile from '../assets/images/JJX Banner MOBILE.png';
+import logo from '../assets/images/jjx-logo.webp';
+import bannerDesktop from '../assets/images/jjx-banner-desktop.webp';
+import bannerMobile from '../assets/images/jjx-banner-mobile.webp';
 import benCoach from '../assets/images/ben_coach.png';
 import kevinCoach from '../assets/images/kevin_coach.png';
 import robertCoach from '../assets/images/robert_coach.png';
@@ -10,71 +10,128 @@ import robertCoach from '../assets/images/robert_coach.png';
 // Import gym images JSON
 import gymImagesData from '../assets/images/gym/images.json';
 
+const gymImages = Object.values(gymImagesData);
+
 const Landing: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   
   // Gym carousel state
-  const gymImages = Object.values(gymImagesData);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [loadedGymIndices, setLoadedGymIndices] = useState<Set<number>>(() => new Set());
+  const [gymImagesEnabled, setGymImagesEnabled] = useState<boolean>(false);
   const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const gymSectionRef = useRef<HTMLDivElement>(null);
+  const isGymVisibleRef = useRef<boolean>(false);
   
   // Side nav state
   const [activeSection, setActiveSection] = useState<string>('welcome');
   const [showSideNav, setShowSideNav] = useState<boolean>(false);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const showSideNavRef = useRef<boolean>(false);
   
   // FAQ state
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-  // Function to start/restart auto-rotation timer
-  const startAutoRotation = useCallback(() => {
-    // Clear existing interval if any
+  const stopAutoRotation = useCallback(() => {
     if (autoRotateIntervalRef.current) {
       clearInterval(autoRotateIntervalRef.current);
+      autoRotateIntervalRef.current = null;
     }
-    
-    // Start new interval
+  }, []);
+
+  // Start/restart auto-rotation only while The Gym is visible
+  const startAutoRotation = useCallback(() => {
+    stopAutoRotation();
+    if (!isGymVisibleRef.current || gymImages.length === 0) {
+      return;
+    }
+
     autoRotateIntervalRef.current = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
+      setCurrentImageIndex((prevIndex) =>
         (prevIndex + 1) % gymImages.length
       );
     }, 4000);
-  }, [gymImages.length]);
+  }, [stopAutoRotation]);
 
-  // Auto-rotate gym images every 3 seconds
+  // Prefetch current + neighbor slides so fades stay smooth without loading all images
   useEffect(() => {
-    startAutoRotation();
+    if (!gymImagesEnabled || gymImages.length === 0) {
+      return;
+    }
+
+    const prev = (currentImageIndex - 1 + gymImages.length) % gymImages.length;
+    const next = (currentImageIndex + 1) % gymImages.length;
+
+    setLoadedGymIndices((prevLoaded) => {
+      if (
+        prevLoaded.has(currentImageIndex) &&
+        prevLoaded.has(prev) &&
+        prevLoaded.has(next)
+      ) {
+        return prevLoaded;
+      }
+
+      const updated = new Set(prevLoaded);
+      updated.add(currentImageIndex);
+      updated.add(prev);
+      updated.add(next);
+      return updated;
+    });
+  }, [currentImageIndex, gymImagesEnabled]);
+
+  // Load images and auto-rotate only while The Gym section is near/on screen
+  useEffect(() => {
+    const section = gymSectionRef.current;
+    if (!section) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isGymVisibleRef.current = entry.isIntersecting;
+
+        if (entry.isIntersecting) {
+          setGymImagesEnabled(true);
+          startAutoRotation();
+        } else {
+          stopAutoRotation();
+        }
+      },
+      { threshold: 0.15, rootMargin: '200px 0px' }
+    );
+
+    observer.observe(section);
 
     return () => {
-      if (autoRotateIntervalRef.current) {
-        clearInterval(autoRotateIntervalRef.current);
-      }
+      observer.disconnect();
+      stopAutoRotation();
     };
-  }, [gymImages.length, startAutoRotation]);
+  }, [startAutoRotation, stopAutoRotation]);
 
   // Function to handle user interaction and reset timer
   const handleUserInteraction = (newIndex: number) => {
     setCurrentImageIndex(newIndex);
-    startAutoRotation(); // Reset the timer
+    if (isGymVisibleRef.current) {
+      startAutoRotation();
+    }
   };
 
   // Side nav scroll detection and section tracking
   useEffect(() => {
     const handleScroll = () => {
-      // Show side nav when user starts scrolling (anywhere on the page)
-      setShowSideNav(true);
-      
-      // Clear existing timeout
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (!showSideNavRef.current) {
+        showSideNavRef.current = true;
+        setShowSideNav(true);
       }
-      
-      // Set new timeout to hide nav after 3 seconds
-      const newTimeout = setTimeout(() => {
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        showSideNavRef.current = false;
         setShowSideNav(false);
       }, 3000);
-      
-      setScrollTimeout(newTimeout);
     };
 
     const observerOptions = {
@@ -94,22 +151,20 @@ const Landing: React.FC = () => {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    
-    // Observe all sections
+
     const sections = document.querySelectorAll('[data-section]');
     sections.forEach((section) => observer.observe(section));
 
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, [scrollTimeout]);
+  }, []);
 
   const toggleMenu = (): void => {
     setIsMenuOpen(!isMenuOpen);
@@ -195,11 +250,27 @@ const Landing: React.FC = () => {
 
       <nav className="navbar">
         <div className="navbar-logo">
-          <img src={logo} alt="The Jiu-Jitsu Exchange Logo" className="logo-image" />
+          <img
+            src={logo}
+            alt="The Jiu-Jitsu Exchange Logo"
+            className="logo-image"
+            width={220}
+            height={220}
+            decoding="async"
+          />
         </div>
         <div className="navbar-banner">
-          <img src={bannerDesktop} alt="The Jiu-Jitsu Exchange" className="banner-desktop" />
-          <img src={bannerMobile} alt="The Jiu-Jitsu Exchange" className="banner-mobile" />
+          <picture>
+            <source media="(max-width: 1024px)" srcSet={bannerMobile} type="image/webp" />
+            <img
+              src={bannerDesktop}
+              alt="The Jiu-Jitsu Exchange"
+              className="banner-image"
+              width={1895}
+              height={150}
+              decoding="async"
+            />
+          </picture>
         </div>
         <div className="hamburger-menu">
           <button 
@@ -298,6 +369,8 @@ const Landing: React.FC = () => {
                   src={kevinCoach} 
                   alt="Kevin - Instructor" 
                   className="coach-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="coach-info">
@@ -317,6 +390,8 @@ const Landing: React.FC = () => {
                   src={robertCoach} 
                   alt="Robert - Head Instructor" 
                   className="coach-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="coach-info">
@@ -334,6 +409,8 @@ const Landing: React.FC = () => {
                   src={benCoach} 
                   alt="Ben - Instructor" 
                   className="coach-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="coach-info">
@@ -442,19 +519,23 @@ const Landing: React.FC = () => {
         </div>
       </div>
       
-      <div className="gym-section" data-section="gym">
+      <div className="gym-section" data-section="gym" ref={gymSectionRef}>
         <div className="gym-container">
           <h2 className="gym-title">The Gym</h2>
           
           <div className="gym-carousel">
             <div className="gym-image-container">
               {gymImages.map((imageUrl, index) => (
-                <img 
-                  key={index}
-                  src={imageUrl} 
-                  alt={`The Jiu-Jitsu Exchange Gym ${index + 1}`}
-                  className={`gym-image ${index === currentImageIndex ? 'active' : ''}`}
-                />
+                loadedGymIndices.has(index) ? (
+                  <img 
+                    key={index}
+                    src={imageUrl} 
+                    alt={`The Jiu-Jitsu Exchange Gym ${index + 1}`}
+                    className={`gym-image ${index === currentImageIndex ? 'active' : ''}`}
+                    loading={index === currentImageIndex ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                ) : null
               ))}
             </div>
             

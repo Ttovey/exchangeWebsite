@@ -372,18 +372,18 @@ body {
   align-items: center;
 }
 
-.banner-desktop {
+.navbar-banner picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.banner-image {
   height: 50px;
   width: auto;
   object-fit: contain;
   display: block;
-}
-
-.banner-mobile {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  display: none;
 }
 
 
@@ -402,18 +402,13 @@ body {
 
 /* Responsive navbar banner styling */
 @media (max-width: 1024px) {
-  .banner-desktop {
-    display: none;
-  }
-  
-  .banner-mobile {
-    display: block;
+  .banner-image {
     height: 38px;
   }
 }
 
 @media (max-width: 480px) {
-  .banner-mobile {
+  .banner-image {
     height: 35px;
   }
 }
@@ -488,7 +483,7 @@ body {
 
 .content-section {
   background: #2a2a2a;
-  background-image: url('./assets/images/JJX LOGO TRANSPARENT.png');
+  background-image: url('./assets/images/jjx-logo-watermark.webp');
   background-repeat: no-repeat;
   background-position: center 75%;
   background-size: 650px auto;
