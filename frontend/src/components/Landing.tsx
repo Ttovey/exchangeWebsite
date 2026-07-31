@@ -192,7 +192,7 @@ const Landing: React.FC = () => {
     },
     {
       question: "What do I need for my first class?",
-      answer: "Please arrive a minimum of 15 minutes early. This will give you time to meet the staff and instructors, complete a waiver if you haven't already, and change clothes if needed.\n\nIf you own a pair of flip flops bring them as no shoes are allowed on the mat and no bare feet are allowed off the mat. Flip flops make it easy to get on and off the mat quickly, if you need to go to the bathroom or grab a drink.\n\nA Gi is required for Gi class. If you don't own one we have some rentals available (depending on size).\n\nFor No-Gi class bring a rash guard and shorts. If its your first week a T-shirt is fine.\n\nWe currently sell rash guards and will sell shorts, Gi's and T-shirts soon."
+      answer: "Please arrive a minimum of 15 minutes early. This will give you time to meet the staff and instructors, complete a waiver if you haven't already, and change clothes if needed.\n\nIf you own a pair of flip flops bring them as no shoes are allowed on the mat and no bare feet are allowed off the mat. Flip flops make it easy to get on and off the mat quickly, if you need to go to the bathroom or grab a drink.\n\nA Gi is required for Gi class. If you don't own one we have some rentals available (depending on size).\n\nFor No-Gi class bring a rash guard and shorts. If its your first week a T-shirt is fine."
     },
     {
       question: "What are your rates?",
